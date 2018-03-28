@@ -1,0 +1,14 @@
+exec_params:
+  cached_prefix: gru_glove
+  debug_mode: false
+  disable_cache: false
+  num_folds: 5,
+  retrain: true
+  skip_cv: false
+feature_params:
+  embed_size: 300
+  embedding_file: glove.42B.300d.txt
+  max_features: 200000
+  maxlen: 100
+fit_params: {batch_size: 32, epochs: 2, verbose: 2}
+model_params: {dropout1: 0.2, gru1: 80}

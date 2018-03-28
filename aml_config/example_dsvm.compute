@@ -1,0 +1,7 @@
+address: <vmname>.northeurope.cloudapp.azure.com
+baseDockerImage: microsoft/mmlspark:plus-0.9.9
+nativeSharedDirectory: ~/.azureml/share/
+password: <enteryourpass>
+sharedVolumes: true
+type: remotedocker
+username: <username>

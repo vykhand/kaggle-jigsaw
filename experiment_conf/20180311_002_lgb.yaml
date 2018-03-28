@@ -1,0 +1,45 @@
+exec_params:
+  cached_prefix: lgb_logreg
+  debug_mode: false
+  disable_cache: false
+  num_folds: 5
+  retrain: false
+  skip_cv: false
+feature_params:
+  charvec_params:
+    max_features: null
+    min_df: 3
+    ngram_range: !!python/tuple [3, 6]
+    strip_accents: unicode
+    sublinear_tf: true
+  wordvec_params:
+    max_features: null
+    min_df: 5
+    ngram_range: !!python/tuple [1, 3]
+    smooth_idf: 1
+    strip_accents: unicode
+    sublinear_tf: true
+    token_pattern: \w{1,}
+    use_idf: 1
+fit_params:
+  verbose_eval: 50
+model_params:
+  early_stop_lookup: {identity_hate: 20, insult: 20,
+                      obscene: 20, severe_toxic: 20,
+                      threat: 20, toxic: 20}
+  lgb_params:
+    application: binary
+    bagging_fraction: 0.8
+#    data_random_seed: 2
+    feature_fraction: 0.6
+    lambda_l1: 1
+    lambda_l2: 1
+    learning_rate: 0.15
+    metric: auc
+    #nthread: 4
+    num_leaves: 15
+    verbosity: -1
+  rounds_lookup: {identity_hate: 500, insult: 500, obscene: 500,
+                  severe_toxic: 500, threat: 500, toxic: 500}
+  selector_threshold: 0.2
+  use_logreg_selector: true

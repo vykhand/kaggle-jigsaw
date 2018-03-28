@@ -1,0 +1,34 @@
+exec_params:
+  model_type: LSTM
+  cached_prefix: NN
+  debug_mode: false
+  disable_cache: false
+  num_folds: 5,
+  retrain: true
+  skip_cv: false
+feature_params:
+  embed_size: 300
+  embedding_file: glove.840B.300d.txt
+  max_features: 100000
+  maxlen: 200
+  preprocessing_params:
+    remove_appo: true
+    repl_smileys: true
+fit_params:
+  batch_size: 128
+  epochs: 50
+  verbose: 2
+model_params:
+  pretrained_embeddings: true
+  lstm1: 512
+  dropout1: 0.5
+  dropout2: 0.5
+  dense1: 256
+  optimizer: nadam
+  early_stop_patience: 3
+  bidirectional: true
+  use_tensorboard: false
+  tensorboard_hist_freq: 0
+  tensorboard_write_graph: false
+  tensorboard_write_grads: false
+  tensorboard_embeddings_freq: 0

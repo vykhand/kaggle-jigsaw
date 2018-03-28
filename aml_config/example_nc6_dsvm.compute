@@ -1,0 +1,8 @@
+address: <yourvmname>.northeurope.cloudapp.azure.com
+baseDockerImage: microsoft/mmlspark:plus-gpu-0.7.9
+nvidiaDocker: true
+nativeSharedDirectory: ~/.azureml/share/
+password: <password>
+sharedVolumes: true
+type: remotedocker
+username: <username>

@@ -1,0 +1,22 @@
+ArgumentVector:
+- $file
+CondaDependenciesFile: aml_config/conda_dependencies.yml
+EnvironmentVariables: null
+Framework: Python
+PrepareEnvironment: false
+SparkDependenciesFile: aml_config/spark_dependencies.yml
+Target: example_nc6_dsvm
+TrackedRun: true
+UseSampling: true
+EnvironmentVariables:
+  "AZURE_STORAGE_ACCOUNT": ""
+  "AZURE_STORAGE_KEY": ""
+  "AZURE_CONTAINER_NAME": "kaggle-jigsaw"
+  "COSMOS_URL": "mongodb://<>:<>"
+  "KERAS_BACKEND": "tensorflow"
+  "AZURE_VM_NAME":  "example_dsvm"
+  "AZURE_RESOURCE_GROUP": "example_dsvm"
+  "AZURE_CLIENT_ID":  ""
+  "AZURE_CLIENT_SECRET": ""
+  "AZURE_TENANT_ID": ""
+  "AZURE_SUBSCRIPTION_ID": ""

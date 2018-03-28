@@ -1,0 +1,37 @@
+exec_params:
+  model_type: LSTM_CONV
+  cached_prefix: NN
+  debug_mode: false
+  disable_cache: false
+  num_folds: 5,
+  retrain: true
+  skip_cv: false
+feature_params:
+  embed_size: 300
+  embedding_file: crawl300d2M.vec
+  embedding_type: fasttext
+  max_features: 200000
+  maxlen: 200
+  preprocessing_params:
+    remove_appo: true
+    repl_smileys: true
+fit_params:
+  batch_size: 128
+  epochs: 30
+  verbose: 2
+model_params:
+  pretrained_embeddings: true
+  lstm1: 80
+  conv1: 64
+  conv_kernel_size: 3
+  dropout1: 0.5
+  dropout2: 0.5
+  dense1: 300
+  optimizer: adam
+  early_stop_patience: 3
+  bidirectional: true
+  use_tensorboard: false
+  tensorboard_hist_freq: 0
+  tensorboard_write_graph: false
+  tensorboard_write_grads: false
+  tensorboard_embeddings_freq: 0

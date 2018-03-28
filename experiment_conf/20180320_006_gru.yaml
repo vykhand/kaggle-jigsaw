@@ -1,0 +1,35 @@
+exec_params:
+  model_type: GRU
+  cached_prefix: NN
+  debug_mode: false
+  disable_cache: false
+  num_folds: 5,
+  retrain: true
+  skip_cv: false
+feature_params:
+  embed_size: 300
+  embedding_file: crawl300d2M.vec
+  embedding_type: fasttext
+  max_features: 200000
+  maxlen: 200
+  preprocessing_params:
+    remove_appo: true
+    repl_smileys: true
+fit_params:
+  batch_size: 64
+  epochs: 30
+  verbose: 3
+model_params:
+  pretrained_embeddings: true
+  optimizer: adam
+  dropout1: 0.5
+  gru1: 80
+  early_stop_patience: 3
+  additional_dense: true
+  dense1: 600
+  dropout2: 0.5
+  use_tensorboard: false
+  tensorboard_hist_freq: 0
+  tensorboard_write_graph: false
+  tensorboard_write_grads: false
+  tensorboard_embeddings_freq: 0

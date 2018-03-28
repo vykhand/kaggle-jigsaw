@@ -1,0 +1,25 @@
+exec_params:
+  cached_prefix: gru_glove
+  debug_mode: false
+  disable_cache: false
+  num_folds: 5,
+  retrain: true
+  skip_cv: false
+feature_params:
+  embed_size: 200
+  embedding_file: glove.twitter.27B.200d.txt
+  max_features: 100000
+  maxlen: 150
+fit_params:
+  batch_size: 32
+  epochs: 10
+  verbose: 2
+model_params:
+  dropout1: 0.5
+  gru1: 60
+  early_stop_patience: 2
+  use_tensorboard: false
+  tensorboard_hist_freq: 0
+  tensorboard_write_graph: false
+  tensorboard_write_grads: false
+  tensorboard_embeddings_freq: 0
