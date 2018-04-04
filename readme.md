@@ -1,8 +1,8 @@
 # Sample solution for Kaggle Jigsaw competition
 
-## Attribution
-
 Pipeline author: [Andrey Vykhodtsev](https://www.linkedin.com/in/vykhand/)
+
+## Attribution
 
 My work here is focused on tooling, monitoring, execution, clean pipeline and integration with Azure services. Other code was adopted from many public kernels and github repositories that can be [found here]() and [here](). I tried to keep the references to original kernels or githubs in the code comments, when appropritate. I apologize if I missed some references or quotes, and if so, please let me know.
 
@@ -14,17 +14,29 @@ The goal of developing and publishing this is to share reusable code that will h
 
 This is the list of features:
 
- *
- *
+ * Everything is a hyperparameter approach. Config files control everything from model parameters to feature generation and cv.
+ * Run experiments locally or remotely using Azure ML Workbench
+ * Run experiments on GPU-based [Azure DSVM]() machines
+ * Easily start and stop VMs
+ * Add and remove VMs to and from the VM fleet
+ * Zero manual data download for new VMs - files are downloaded from Azure Storage on demand by code.
+ * Caching feature transformations in Azure Storage
+ * Shutting down the VMs at the end of experiment
+ * Time and memory usage logging
+ * Keras/Tensorboard integration
+ * Usage of [Sacred]() library and logging experiment reporducibility data to CosmosDB
+ * Integration with Telegram Bot and Telegram notifications
+ * Examples of running LightGBM, sklearn models, Keras/Tensorflow
 
-I am also writing a blog post which is going to published [here]().
 
 ## Presentations and blog posts
 
-This solution is accompanying a few presentations that I gave on PyData meetup in Ljubljana and AI meetup in Zagreb. Links to the slides:
+This solution is accompanying a few presentations that I gave on [PyData meetup in Ljubljana]() and [AI meetup in Zagreb](). Links to the slides:
 
- * PyData Ljubljana #5
+ * [PyData Ljubljana #5](https://www.slideshare.net/andreyvykhodtsev/20180328-av-kagglejigsawwithamlwb-92229518)
  * AI Future Zagreb
+
+I am also writing a blog post which is going to published [here]().
 
 ## Technical overview of the solution
 
@@ -73,5 +85,7 @@ Explore past runs and access project outputs using the **Run History** tab.
 ### Monitoring Tensorflow using Tensorboard
 ### Retrieving experiment results from CosmosDB
 ### Accessing experiment storage directly
+
+## Code structure
 
 ## Future work and TODOs
