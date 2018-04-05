@@ -66,7 +66,7 @@ Information from Azure ML runs is stored in a separate storage account, which ha
 
 TODO: draw better diagram
 
-![Experiment flow doodle drawing](experiment_flow_doodle.png)
+![Experiment flow doodle drawing](img/experiment_flow_doodle.png)
 
 ## Deploying solution
 
