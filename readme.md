@@ -2,6 +2,8 @@
 
 Pipeline author: [Andrey Vykhodtsev](https://www.linkedin.com/in/vykhand/)
 
+[GitHub Pages link](https://vykhand.github.io/kaggle-jigsaw)
+
 ## Attribution
 
 My work here is focused on tooling, monitoring, execution, clean pipeline and integration with Azure services. Other code was adopted from many public kernels and github repositories that can be [found here](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/kernels) and [here](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/discussion). I tried to keep the references to original kernels or githubs in the code comments, when appropritate. I apologize if I missed some references or quotes, and if so, please let me know.
@@ -36,46 +38,70 @@ This solution is accompanying a few presentations that I gave on [PyData meetup 
  * [PyData Ljubljana #5](https://www.slideshare.net/andreyvykhodtsev/20180328-av-kagglejigsawwithamlwb-92229518)
  * AI Future Zagreb
 
-I am also writing a blog post which is going to published [here](https://www.meetup.com/Artificial-Intelligence-Future-Meetup/).
+I am also writing a blog post which is going to published [here](https://vykhand.github.io).
 
 ## Technical overview of the solution
 
+This sample solution allows you to run text classification experiments via command line or via [Azure ML Workbench](http://aka.ms/AzureMLGettingStarted).
+To see, how to run, configure and monitor experiments, refer to the [Standard Operating Procedures]() section.
+If you wish to extend or modify the code, please refer to [Modifying the solution]
 
 ### Pipeline
+
+Pipeline intends to be extendable and configurable to support "everything is a hyperparameter" approach.
 
 ![Pipeline: code structure](img/pipeline.png)
 
 ### Architecture
+Below is the diagram of compute architecture. I used cheap Windows DSVM (burst instances) to run series of experiments and stop the machines after all experiments are finished.
+I used 2-3 CPU VMs and 2 GPU vms to run experiments. I used minimial sized collections for CosmosDB to store "python/sacred" experiment information.
+Information from Azure ML runs is stored in a separate storage account, which has 1 folder per experiment, automatically populated by AML.
+
+
+![Training pipeline architecture on azure](img/arch.png)
 
 ### Experiment flow
 
+
+
+TODO: draw better diagram
+
+![Experiment flow doodle drawing](experiment_flow_doodle.png)
+
 ## Deploying solution
+
+ 1. Check out the [git repository]()
+ 1. [Install AML Workbench (AMLWB)]()
+ 1. [Add github folder to AMLWB]()
+ 1. Refer to [Azure CLI]() section to set up az cli and find your tenant, and also login into azure from CLI
+ 1. Use the [Example script]() to set up new VM
+ 1. Create Azure Storage and load [Data]() to it
+ 1. [Create Cosmos DB for Sacred experiment monitoring]()
+ 1. [Create telegram bot]()
+ 1. Copy environment variables from [Example VM configuration]() to your amlconfig \<vm\>.runconfig and populate them with your own values
+ 1. If you are setting up a GPU VM, be sure to follow the [instruction]() or math the [Example GPU config]()
+
+### Setting up Azure CLI and getting your tenant
+
+### Setting up Cosmos DB
+
+### Creating storage account and loading data
+
+### Setting up Azure ML Services
+
+In this competition, I used experiment monitoring facility and notebook facility. I have not used many other useful capabilities described in the [documentation]()
+
+More information is availabie at <http://aka.ms/AzureMLGettingStarted>
 
 ## Data downloads
 
-Data for this competition is not distributed with this repository. You need to download it from the competition page located [here](). There are also multiple other external files that I used for this competition:
+Data for this competition is not distributed with this repository. You need to download it from the competition page located [here](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/data). There are also multiple other external files that I used for this competition:
 
- * [Google's Full list of banned words]()
- * [Glove embedding vectors]()
- * [FastText embedding vectors]()
-
-## About Azure and Azure CLI
+ * [Google's Full list of banned words](https://www.freewebheaders.com/full-list-of-bad-words-banned-by-google/)
+ * [Glove embedding vectors](https://nlp.stanford.edu/projects/glove/)
+ * [FastText embedding vectors](https://github.com/facebookresearch/fastText/blob/master/pretrained-vectors.md)
 
 
-
-## About Azure ML Services
-
-Welcome to your new Azure Machine Learning Project.
-
-For more information go to <http://aka.ms/AzureMLGettingStarted>
-
-Configure your favorite IDE and open this project using the **File menu**.
-
-Add and prepare data sources using the **Data** tab.
-
-Add and explore notebooks using the **Notebook** tab.
-
-Explore past runs and access project outputs using the **Run History** tab.
 
 
 ## Standard operating procedures
@@ -93,6 +119,7 @@ Explore past runs and access project outputs using the **Run History** tab.
 ### Retrieving experiment results from CosmosDB
 ### Accessing experiment storage directly
 
-## Code structure
+## Modifying solution
+### Code structure
 
 ## Future work and TODOs
