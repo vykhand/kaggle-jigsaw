@@ -62,6 +62,14 @@ Information from Azure ML runs is stored in a separate storage account, which ha
 
 ### Experiment flow
 
+ 1. Run az ml command or use AML WB to start an experiment
+ 1. Azure ML Experimentation services send your code to VSTS/git special branch
+ 1. Azure ML Experimentation spins off a docker container on the appropriate compute and monitors the progress
+ 1. The pipeline code takes care of downloading all necessary files, so it can be ran on completely new VM
+ 1. Python Sacred library saves detailed telemetry to CosmosDB
+ 1. Python Sacred library notifies you via Telegram when experiment starts and ends, together with experiment results.
+ 1. When experiment ends, Azure ML saves all the resulting files to your Azure Storage account
+
 
 
 TODO: draw better diagram
@@ -78,14 +86,10 @@ TODO: draw better diagram
  1. Create Azure Storage and load [Data]() to it
  1. [Create Cosmos DB for Sacred experiment monitoring]()
  1. [Create telegram bot]()
+ 1. [Set up service principal and app id]() to run azure management functions from Python code
  1. Copy environment variables from [Example VM configuration]() to your amlconfig \<vm\>.runconfig and populate them with your own values
  1. If you are setting up a GPU VM, be sure to follow the [instruction]() or math the [Example GPU config]()
-
-### Setting up Azure CLI and getting your tenant
-
-### Setting up Cosmos DB
-
-### Creating storage account and loading data
+ 1. You are now good to go. Refer to [Standard Operating Procedures]() to understand how to run and configure experiments
 
 ### Setting up Azure ML Services
 
@@ -93,13 +97,43 @@ In this competition, I used experiment monitoring facility and notebook facility
 
 More information is availabie at <http://aka.ms/AzureMLGettingStarted>
 
-## Data downloads
+### Data downloads
 
 Data for this competition is not distributed with this repository. You need to download it from the competition page located [here](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/data). There are also multiple other external files that I used for this competition:
 
  * [Google's Full list of banned words](https://www.freewebheaders.com/full-list-of-bad-words-banned-by-google/)
  * [Glove embedding vectors](https://nlp.stanford.edu/projects/glove/)
  * [FastText embedding vectors](https://github.com/facebookresearch/fastText/blob/master/pretrained-vectors.md)
+
+
+### Setting up Azure CLI and logging in
+
+az cli should be set up together with Azure ML Workbench. validate that by runing
+
+```
+az --version
+```
+
+You need to login with az by typing the command and following the instructions
+
+```
+az login
+```
+
+then you need to set your subscriptipon using the commands
+
+```
+# show subscriptions
+az account list
+# set subscription
+az account set -s <subscription_name>
+```
+
+### Setting up Azure Service principal
+
+### Setting up Cosmos DB
+
+### Creating storage account and loading data
 
 
 
