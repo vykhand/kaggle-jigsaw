@@ -137,20 +137,103 @@ az account set -s <subscription_name>
 
 
 
-
 ## Standard operating procedures
 
+### Running experiments from command line
+
+Running GRU model with default config:
+
+```
+az ml experiment submit -c dsvm001 run.py GRU
+```
+Running with configuration file (modified file copied from conf_template)
+
+```
+az ml experiment submit -c dsvm001 run.py --conf experiment_conf/GRU.yaml
+```
+
 ### Running experiments with AMLWB
+
+you can run ```run.py``` script with AML WB on your favourite compute, specifying configuration file or modeltype as an argument
+
+![](img/AMLWB3.png)
+
 ### Accessing experiment files
 
 #### Submitting to Kaggle
 
 ### Adding new compute
+
+ 1. Copy and modify [example_dsvm.json]() or [example_nc6_dsvm.json]()
+ 1. Copy and modify [example_dsvm.azcli](), replacing the example_dsvm with your VM name
+ 1. Run the commands in your azcli file
+
+```
+az group create -n example_dsvm -l northeurope
+
+# now let's create the DSVM based on the JSON configuration file you created earlier.
+# note we assume the mydsvm.json config file is placed in the "docs" sub-folder.
+az group deployment create -g example_dsvm --template-uri https://raw.githubusercontent.com/Azure/DataScienceVM/master/Scripts/CreateDSVM/Ubuntu/azuredeploy.json --parameters @scripts/example_dsvm.json
+
+# find the FQDN (fully qualified domain name) of the VM just created.
+
+az vm show -g example_dsvm -n example_dsvm -d
+
+# attach the DSVM compute target
+# it is a good idea to use FQDN in case the IP address changes after you deallocate the VM and restart it
+
+az ml computetarget attach remotedocker --name example_dsvm --address example_dsvm.northeurope.cloudapp.azure.com --username <username> --password "<yourpass>"
+
+# prepare the Docker image on the DSVM
+az ml experiment prepare -c example_dsvm
+```
+
 ### Deallocating machines
+
+run
+
+```
+az vm deallocate -g <vm_group> -n <vm_name>
+```
+
 ### Running series of experiments
+
+specify folder name and compute target. the script will run all the experiments and will shut down the VM at the end
+
+```
+python run_folder.py experiments_conf\folder_name dsvm001
+```
+
 ### Monitoring GPU usage
+
+login to your GPU VM and run
+
+```
+watch nvidia-smi
+```
+
 ### Monitoring Tensorflow using Tensorboard
+
+Note the tensorflow logdir link in your experiment log:
+
+![Tensorflow link from Keras](img/Tensorboard_AMLWB.png)
+
+
+You just need the logdir name. Then log into your GPU VM and run:
+
+```
+tensorboard --logdir ~/.azureml/share/<your projectpath>/<logdir name>
+```
+
 ### Retrieving experiment results from CosmosDB
+
+You can use the portal or VS Code plugin to access the data in CosmosDB:
+
+![CosmosDB data](img/Cosmos_VSTS.png)
+
+You can also set up the PowerBI dashboards that connect to your CosmosDB.
+
+
 ### Accessing experiment storage directly
 
 ## Modifying solution
