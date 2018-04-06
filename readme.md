@@ -293,8 +293,64 @@ You can also set up the PowerBI dashboards that connect to your CosmosDB.
 
 ## Modifying solution
 
-Programmers love developing their own frameworks. There is a chance, that you will hate mine. But in case you'd like it, here are some pointers on modifying and extending it.
+Programmers love developing their own frameworks. There is a chance that you will hate mine. But in the case you'd like it, here are some pointers on modifying and extending it.
 
-### Code structure
+### Project structure
 
-## Future work and TODOs
+| Folder name | Description |
+|-------------:|--------------|
+|  ```aml_config``` | Configuration files for compute |
+| ```conf_templates``` | Experiment configuration templates for different models |
+| ```experiment_conf``` | configurations of the individual experiments. No need to save every experiment here |
+| ```kaggle-jigsaw``` | Main python package |
+| ```notebooks``` | Jupyter notebooks with some musings |
+| ```scripts``` | scripts to create compute |
+| ```root folder``` | Run scripts and readme |
+
+### Python package structure
+
+| Folder name | Description |
+|-------------:|--------------|
+| ```experiments```| Sacred experiments for a particular model type |
+| ```modeling```| Cross-validation logic, base classes for classifiers, and individual model classes|
+| ```preprocessing```| Base class for all preprocessors and data transofrmation classes |
+| ```constants.py```| This is where you can redefine default file names etc. |
+| ```util.py```| Auxilary routines for logging, dealing with Azure and other miscellaneous things |
+
+#### Utilites util.py
+responsible for
+ * Logging: time, memory
+ * Communicating with Azure Storage
+   * Get file from Azure storage "cache"
+   * Put file to cache
+   * check if file is available
+ * Shutting down the VMs
+ * Handling the cache for experiment preprocessed data
+   * calculates feature param md5 hash and downloads from Azure if file is available with this hash
+
+#### Experiments
+
+Code here simply chooses appropriate classes for model and preporcessors, and sets up Sacred.
+
+Implemented the following models
+| file name | description |
+|----|----|
+| NN.py  | all neural networks|
+| LGB.py | LightGBM|
+| sklearn | any sklearn-compatible model |
+| nbsvm | Naive Bayes with logistic regression |
+
+#### Modeling
+
+Implements base classes for models and specific classes. Also implements cross-validation logic.
+
+#### Preprocessing
+
+Implements base preprocessor class and specific classes for specific needs.
+
+### Run scripts
+
+1. Generic runner for all models ```run.py```
+2. Run a folder of experiments on a VM and then shut it down ```run_folder.py```
+3. Train embeddings on a vm ```train_w2v.py```
+
